@@ -746,10 +746,8 @@ impl Memory {
         // pooling-allocator memory with an on-demand memory would cross-wire
         // the allocation indices, corrupting the allocator's bookkeeping and
         // causing panics on deallocation.
-        let a_is_on_demand = store[self.instance]
-            .defined_memory_is_on_demand(self.index);
-        let b_is_on_demand = store[other.instance]
-            .defined_memory_is_on_demand(other.index);
+        let a_is_on_demand = store[self.instance].defined_memory_is_on_demand(self.index);
+        let b_is_on_demand = store[other.instance].defined_memory_is_on_demand(other.index);
         if a_is_on_demand != b_is_on_demand {
             bail!("cannot swap memories allocated from different allocators");
         }

@@ -892,10 +892,7 @@ fn swap_rejects_cross_allocator() -> Result<()> {
     config.memory_guard_size(0);
     config.memory_reservation(1 << 16);
     let engine = Engine::new(&config)?;
-    let module = Module::new(
-        &engine,
-        r#"(module (memory (export "m") 1 1))"#,
-    )?;
+    let module = Module::new(&engine, r#"(module (memory (export "m") 1 1))"#)?;
     let mut store = Store::new(&engine, ());
     let instance = Instance::new(&mut store, &module, &[])?;
     let pooled = instance.get_memory(&mut store, "m").unwrap();
@@ -920,10 +917,7 @@ fn swap_pooling_allocator() -> Result<()> {
     config.memory_reservation(1 << 16);
     let engine = Engine::new(&config)?;
 
-    let module = Module::new(
-        &engine,
-        r#"(module (memory (export "m") 1 1))"#,
-    )?;
+    let module = Module::new(&engine, r#"(module (memory (export "m") 1 1))"#)?;
 
     let mut store = Store::new(&engine, ());
     let inst_a = Instance::new(&mut store, &module, &[])?;
@@ -974,10 +968,7 @@ fn swap_pooling_allocator_self_swap() -> Result<()> {
     config.memory_reservation(1 << 16);
     let engine = Engine::new(&config)?;
 
-    let module = Module::new(
-        &engine,
-        r#"(module (memory (export "m") 1 1))"#,
-    )?;
+    let module = Module::new(&engine, r#"(module (memory (export "m") 1 1))"#)?;
 
     let mut store = Store::new(&engine, ());
     let inst = Instance::new(&mut store, &module, &[])?;
@@ -1004,14 +995,8 @@ fn swap_pooling_allocator_type_mismatch() -> Result<()> {
     config.memory_reservation(2 << 16);
     let engine = Engine::new(&config)?;
 
-    let module_1page = Module::new(
-        &engine,
-        r#"(module (memory (export "m") 1 1))"#,
-    )?;
-    let module_2page = Module::new(
-        &engine,
-        r#"(module (memory (export "m") 2 2))"#,
-    )?;
+    let module_1page = Module::new(&engine, r#"(module (memory (export "m") 1 1))"#)?;
+    let module_2page = Module::new(&engine, r#"(module (memory (export "m") 2 2))"#)?;
 
     let mut store = Store::new(&engine, ());
     let inst_a = Instance::new(&mut store, &module_1page, &[])?;
